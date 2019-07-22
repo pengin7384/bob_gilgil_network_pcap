@@ -1,6 +1,6 @@
 #include "widget.h"
 
-Widget::Widget(QWidget *parent) :
+Widget::Widget(QWidget *parent, int argc, char** argv) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
@@ -8,11 +8,17 @@ Widget::Widget(QWidget *parent) :
     Network* network = new Network();
 
     bool ok = true;
+    QString text;
 
-    QString devList = network->getInterfaceList();
-    QString text = QInputDialog::getText(this, tr("Info"),tr("Interface list:\n"+devList.toUtf8()+"\n\nInput target interface:"), QLineEdit::Normal,"wlp0s20f3", &ok);
+    if(argc > 1) {
+        text = argv[1];
+    } else {
+        QString devList = network->getInterfaceList();
+        text = QInputDialog::getText(this, tr("Info"),tr("Interface list:\n"+devList.toUtf8()+"\n\nInput target interface:"), QLineEdit::Normal, network->getFirstInterface(), &ok); // wlp0s20f3
+    }
+
     if(!ok) {
-        parent->close(); // wlp0s20f3
+        parent->close();
     }
 
     loadUI();

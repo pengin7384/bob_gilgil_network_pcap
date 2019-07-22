@@ -312,13 +312,23 @@ private:
 
 public:
 
+    QString getFirstInterface() {
+        pcap_if_t *ifs = nullptr;
+        char errbuf[PCAP_ERRBUF_SIZE];
+
+        if(pcap_findalldevs(&ifs, errbuf)==-1 || ifs == nullptr) {
+            return "";
+        } else {
+            pcap_if_t* pIf;
+            pIf=ifs;
+            return pIf->name;
+        }
+    }
+
     QString getInterfaceList() {
         pcap_if_t *ifs = nullptr;
         char errbuf[PCAP_ERRBUF_SIZE];
-        if(pcap_findalldevs(&ifs, errbuf)==-1) {
-            return nullptr;
-        }
-        if(ifs == nullptr) {
+        if(pcap_findalldevs(&ifs, errbuf)==-1 || ifs == nullptr) {
             return nullptr;
         }
 

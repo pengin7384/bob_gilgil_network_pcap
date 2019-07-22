@@ -19,17 +19,16 @@ class Widget;
 class Widget : public QWidget
 {
     Q_OBJECT
-
-public:
-    explicit Widget(QWidget *parent = nullptr);
-    ~Widget();
-public slots:
-    void addData(const QVariant&);
 private:
     Ui::Widget *ui;
     void loadUI();
     void printList(QStringList list);
-
+public:
+    //explicit Widget(QWidget *parent = nullptr);
+    explicit Widget(QWidget *parent = nullptr, int argc = 0, char** argv = nullptr);
+    ~Widget();
+public slots:
+    void addData(const QVariant&);
 };
 
 #endif // WIDGET_H
