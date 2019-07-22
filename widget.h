@@ -24,7 +24,6 @@ private:
     void loadUI();
     void printList(QStringList list);
 public:
-    //explicit Widget(QWidget *parent = nullptr);
     explicit Widget(QWidget *parent = nullptr, int argc = 0, char** argv = nullptr);
     ~Widget();
 public slots:
